@@ -1,0 +1,11 @@
+README.md
+setup.py
+alimentacion_vacas_lecheras.egg-info/PKG-INFO
+alimentacion_vacas_lecheras.egg-info/SOURCES.txt
+alimentacion_vacas_lecheras.egg-info/dependency_links.txt
+alimentacion_vacas_lecheras.egg-info/top_level.txt
+requerimientos/__init__.py
+requerimientos/vaca_lactante/__init__.py
+requerimientos/vaca_lactante/energia_gestacion.py
+requerimientos/vaca_lactante/energia_mantencion.py
+requerimientos/vaca_lactante/proteina.py

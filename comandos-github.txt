@@ -7,10 +7,12 @@ git remote add origin https://github.com/ArnoldoAndresRamos/nutricion-vacas-lech
 git push -u origin main
 
 
-
-…or push an existing repository from the command line
-git remote add origin https://github.com/ArnoldoAndresRamos/nutricion-vacas-lecheras.git
-git branch -M main
-git push -u origin main
-
 https://github.com/ArnoldoAndresRamos/nutricion-vacas-lecheras.git
+
+git status
+git add --all 
+git commit -m "Agrega función de cálculo de requerimientos de energía para vacas lactantes"
+
+
+"configurar la rama remota "main" como la rama upstream"
+git push --set-upstream origin main
