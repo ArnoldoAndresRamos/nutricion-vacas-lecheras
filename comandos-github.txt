@@ -16,3 +16,6 @@ git commit -m "Agrega función de cálculo de requerimientos de energía para va
 
 "configurar la rama remota "main" como la rama upstream"
 git push --set-upstream origin main
+
+"para crear el paquete distribuible"
+python setup.py sdist
