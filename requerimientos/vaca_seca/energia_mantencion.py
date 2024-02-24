@@ -1,17 +1,5 @@
-"""
-Para vacas lactantes y secas 
-el requisito de mantenimiento para las vacas lactantes 
-se calcula utilizando el tamaño corporal metabólico (BW0.75) y se calcula con la siguiente ecuación 
-que incluye un ajuste por actividad.
-"""
-# NEmaint
-def calcular_energia_neta_mantencion(
-        peso_vivo: float,
-        distancia_recorrida_dia: float = None, 
-        numero_viajes:int = None, 
-        dias_gestacion: int = None, 
-        a1: float = 0.08
-        ) -> float:
+
+def calcular_energia_neta_mantencion(peso_vivo: float, distancia_recorrida_dia: float = None, numero_viajes:int = None, dias_gestacion: int = None, a1: float = 0.08) -> float:
     """
     peso_vivo               ( float , obligatoria ) = peso vivo del animal en kg.
     distancia_recorrida_dia ( float , opcional    ) = distancia en metros que recorre el animal desde el establo a la sala de ordeña o pastoreo.
@@ -33,63 +21,52 @@ def calcular_energia_neta_mantencion(
     return calcular_energia_neta_mantencion_base(peso_ajustado, a1) + energia_neta_actividad
 
 
+"""
+las siguentes son todas las funciones que se usaran en la funcion principal -> "calcular_energia_neta_mantencion()"
+"""
 def calcular_peso_cria_al_nacer(peso_vivo):
+    """
+    descripcion:
+        calcula el peso del ternero al nacer en base a peso de vaca
+        se llama en el modelo del NRC "CBW"
+
+    parametros:
+        peso de vaca adulta 
+
+    retorna:
+        peso estimado de la cria al nacer en kg
+    """
     return peso_vivo * 0.06275
 
 
 def calcular_peso_utero_gravido(dias_gestacion, peso_cria_al_nacer):
     """
+    descripción:
+        calcula el peso del utero en crecimiento "CW" en el modelo del NRC
+    parametros:
+        dias_gestacion : numero de dias de gestación
+        peso_cria_al_nacer: peso del ternero al nacer
     """
     return (18 + ((dias_gestacion - 190) * 0.665)) * (peso_cria_al_nacer/ 45)
 
 
 def calcular_energia_neta_actividad(distancia_recorrida_dia , numero_viajes, peso_vivo):
-    """
-    Descripción:
-        calcula la energia neta de actividad del animal durante el dia
-
-    Parametros:
-        distancia_recorrida_dia = distancia recorrrida en metros desde el establo o pastoreo a la sala de ordeña
-        numero_viajes           = numero de viajes que se da en el dia desde el establo o pastoreo a la sala de ordeña
-        peso_vivo               = peso vivo del animal en kg
-    
-        retorna :
-            energia neta en Mcal/dia
-    """
     return (((distancia_recorrida_dia/1000) * numero_viajes) * (0.00045 * peso_vivo)) + (0.0012 * peso_vivo)
 
-
-# topgra
-def relieve(relieve_irregular, peso_vivo ): 
+def topogrfia():
     """
-    descripción:
-        la funcion calcula el efecto que tiene el relieve en calculo de la energia neta de mantencion para la actividad
-
-    parametros:
-        irregular   : boleano si el relieve es irregular True, si no False
-        peso_vivo   : peso vivo del animal en kg
-
-    retorna:
-
+    diferencias en la topografía de los animales en pastoreo.
+    La topografía puede ser plana o montañosa. No se realiza ningún ajuste si la topografía es plana
     """
-    if relieve_irregular:
-        return 0.006 * peso_vivo
-    return 0
-
+    pass
 
 def calcular_energia_neta_mantencion_base(peso_vivo, a1 = 0.08):
-    """
-    Descripción:
-        calcula la energia neta del animal en base solo del peso vivo
-
-    Parametros:
-        peso_vivo   = kg de peso de la vaca
-        a1          = 0.08 es el requerimientos de mantención termoneutral en Mcal/dia
-
-    retorna:
-        energia neta en en Mcal/dia
-    """
     return (peso_vivo ** 0.75) * a1
 
 
 
+def calcular_energia_neta_mantencion_gestacion():
+    """
+    Calculo de energia neta de mantencion para los 2 ultimos meses de gestacion
+    """
+    pass
