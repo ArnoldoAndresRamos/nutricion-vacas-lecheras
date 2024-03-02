@@ -1,17 +1,9 @@
 # The maintenance requirements for heifers without stress (NEmaintNS) are calculated with the following equation
 
 
-def calcular_energia_neta_mantencion_sin_estres_novilla_reemplazo(
-        
-        peso_vivo                   = None , 
-        temperatura_previa          = None,  
-        dias_gestacion              = None ,
-        peso_cria_al_nacer          = None, 
-        grado_condicion_corporal_5  = None, 
-        pastoreo                    = None , 
-        relieve_irregular           = None
-
-        ):
+def calcular_energia_neta_mantencion_sin_estres(
+        peso_vivo=None , temperatura_previa=None , dias_gestacion=None , peso_cria_al_nacer= None, 
+        grado_condicion_corporal_5  = None , pastoreo= None , relieve_irregular= None ):
     
     """
     descrición:
@@ -30,7 +22,7 @@ def calcular_energia_neta_mantencion_sin_estres_novilla_reemplazo(
         energia neta de mantención en Mcal/dia
     """
     
-    if peso_cria_al_nacer==None:
+    if peso_cria_al_nacer == None:
         peso_cria_al_nacer = calcular_peso_cria_al_nacer(peso_vivo)
     
     a1                      = 0.086 # a1
@@ -41,6 +33,8 @@ def calcular_energia_neta_mantencion_sin_estres_novilla_reemplazo(
     energia_neta_actividad  = calcular_energia_neta_mantecion_actividad( peso_vivo , pastoreo) + relieve( relieve_irregular , peso_vivo)
 
     return ( (peso_corporal_reducido-peso_utero_gravido)**0.75 ) * ((a1*ajuste_plano_alimentacion_previa) + a2) + energia_neta_actividad
+
+
 
 def calcular_peso_corporal_reducido(peso_vivo):
     """
@@ -70,7 +64,7 @@ def calcular_peso_cria_al_nacer(peso_vivo):
     return peso_vivo * 0.06275
 
 
-def calcular_peso_utero_gravido(dias_gestacion, peso_cria_al_nacer):
+def calcular_peso_utero_gravido(dias_gestacion, peso_cria_al_nacer:float):
     """
     descripción:
         calcula el peso del utero en crecimiento "CW" en el modelo del NRC
@@ -82,7 +76,7 @@ def calcular_peso_utero_gravido(dias_gestacion, peso_cria_al_nacer):
     retorna:
         peso usterogravido en kg    
     """
-    return (18 + ((dias_gestacion - 190) * 0.665)) * (peso_cria_al_nacer/ 45)
+    return (18 + (( dias_gestacion - 190) * 0.665)) * (peso_cria_al_nacer/ 45)
 
     
 def calcular_a2(temperatura_previa):
@@ -101,6 +95,7 @@ def calcular_a2(temperatura_previa):
     return 0.0007 * (20 - temperatura_previa)
 
 
+# COMP
 def calcular_ajuste_plano_alimentacion_previa(grado_condicion_corporal_5):
     """
     descripción:
@@ -116,6 +111,7 @@ def calcular_ajuste_plano_alimentacion_previa(grado_condicion_corporal_5):
     return 0.8 + ( (convertir_escala_5_a_9( grado_condicion_corporal_5)-1) * 0.05 )
 
 
+# CS9
 def convertir_escala_5_a_9( grado_condicion_corporal_5):
     """
     descripción:
@@ -162,6 +158,10 @@ def relieve(relieve_irregular, peso_vivo ):
     return 0
 
 
+
+
+
+
 """
 Para las novillas, estos requisitos luego se ajustan según los efectos de la 
 temperatura que se basan en el área de superficie,la producción de calor, 
@@ -169,3 +169,29 @@ el aislamiento del tejido y del pelaje, la condición del pelaje y la temperatur
 Se calcula la primera superficie (SA) y producción de calor (HP) (Mcal/m2/día).
 
 """
+
+# SA
+def calculo_superficie_piel( peso_vivo ):
+    """
+    descripcion:
+        calcula la superficie de la piel de la novilla en m2
+        utiliza la funcion que calcular_peso_corporal_reducido(peso_vivo) que esta mas arriba en este mismo archivo 
+
+    Parametros:
+        peso_vivo = en kg
+
+    retorna:
+        m2 de superficie de piel del animal
+    """
+    return 0.09 * ( calcular_peso_corporal_reducido(peso_vivo)**0.67 )
+
+
+# HP
+def calcular_produccion_de_calor():
+    """
+    Descripcion:
+        Calcula la produccion de calor del animal en Mcal/m2/dia
+    Parametros:
+
+    """
+    return 0

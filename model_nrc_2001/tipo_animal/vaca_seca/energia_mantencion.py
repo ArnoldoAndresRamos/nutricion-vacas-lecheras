@@ -1,5 +1,5 @@
 
-def calcular_energia_neta_mantencion(peso_vivo: float, distancia_recorrida_dia: float = None, numero_viajes:int = None, dias_gestacion: int = None, a1: float = 0.08) -> float:
+def calcular_energia_neta_mantencion_vaca_seca(peso_vivo: float, distancia_recorrida_dia: float = None, numero_viajes:int = None, dias_gestacion: int = None, a1: float = 0.08) -> float:
     """
     peso_vivo               ( float , obligatoria ) = peso vivo del animal en kg.
     distancia_recorrida_dia ( float , opcional    ) = distancia en metros que recorre el animal desde el establo a la sala de ordeña o pastoreo.
@@ -61,6 +61,7 @@ def topogrfia():
     pass
 
 def calcular_energia_neta_mantencion_base(peso_vivo, a1 = 0.08):
+    
     return (peso_vivo ** 0.75) * a1
 
 

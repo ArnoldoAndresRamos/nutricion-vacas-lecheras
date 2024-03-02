@@ -1,4 +1,4 @@
-from requerimientos.vaca_lactante.energia_mantencion import calcular_peso_cria_al_nacer
+from model_nrc_2001.tipo_animal.vaca_lactante.energia_mantencion import calcular_peso_cria_al_nacer
 
 
 def calcular_energia_metabolizable_gestacion(dias_gestacion , peso_cria_al_nacer = None , peso_vivo=None):
